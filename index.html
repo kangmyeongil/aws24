@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Newsletter Subscription</title>
+</head>
+<body>
+    <h1>Subscribe to our Newsletter</h1>
+    <form id="subscription-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">Subscribe</button>
+    </form>
+    <script>
+        const form = document.getElementById('subscription-form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            try {
+                const response = await fetch('api gateway endpoint', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.message || 'Subscription successful!');
+                } else {
+                    alert(data.error || 'Subscription failed.');
+                }
+            } catch (error) {
+                alert('An error occurred.');
+            }
+        });
+    </script>
+</body>
+</html>
